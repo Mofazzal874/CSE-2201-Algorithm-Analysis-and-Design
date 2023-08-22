@@ -8,11 +8,11 @@ using min_heap = priority_queue<T , vector<T> , greater<T>> ; //to make minHeap.
 
 void BellmanFord(int n ,vector<vector<int>> &adjL, int source){
 
-
-    vector<int> dist(n , 1e8) ;
+    vector<int> dist(n, 1e8) ; //put n+1 if the graph starts from 1(not 0)
     vector<int> nCycle ; 
-    vector<int> parent(n,-1) ; 
-    dist[source] = 0 ; 
+    vector<int> parent(n,-1) ;// put n+1 if the graph starts from 1(not 0)
+    dist[source] = 0 ;
+    n-- ;  
     while(n--){
         for(auto it: adjL){
             int u = it[0]  ; 
@@ -20,11 +20,29 @@ void BellmanFord(int n ,vector<vector<int>> &adjL, int source){
             int wt = it[2] ;
             if(dist[u] + wt < dist[v]){
                 dist[v] = dist[u] + wt;
-                parent[v] = u ;  
+                  
             }
 
         }
     }
+    int flag = 0 ; 
+     for(auto it: adjL){
+            int u = it[0]  ; 
+            int v = it[1]  ; 
+            int wt = it[2] ;
+            if(dist[u] != 1e8 && dist[u] + wt < dist[v]){
+                flag = 1 ; 
+                dist[v] = dist[u] + wt;
+                parent[v] = u ;   
+            }
+
+    } 
+    if(flag == 0){ 
+        cout<<"No Negative Cycle\n"  ;
+        cout<<"Distance array: "<<endl;
+        for(auto it:dist) cout<<it<<" " ; 
+    }
+    else {
     int temp ; 
     for(auto it:parent){
         if(it!=-1) {temp = it;break;} 
@@ -37,7 +55,13 @@ void BellmanFord(int n ,vector<vector<int>> &adjL, int source){
         cur = parent[cur] ;  
     } 
     reverse(nCycle.begin(),nCycle.end()) ; 
-    for(auto it:nCycle) cout<<it<<" " ;     
+    for(auto it:nCycle) cout<<it<<" " ;
+
+    cout<<"distance array:"<< endl;
+    for(auto it:dist)cout<<it<<" " ; 
+
+    }
+         
 }
 
 int32_t main(){

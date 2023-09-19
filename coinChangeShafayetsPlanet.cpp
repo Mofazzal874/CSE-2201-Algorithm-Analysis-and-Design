@@ -20,7 +20,7 @@ int f(int i, int W,vector<int> &coins , vector<vector<int>> &dp) {
     if (dp[i][W] != -1) return dp[i][W];
     
     int res_1 = 1 + f(i +1, W - coins[i] , coins , dp); //if the coin number is unlimited , then change i+1 to i 
-    int res_2 = f(i + 1, W , coins , dp);
+    int res_2 = 0+ f(i + 1, W , coins , dp);
     
      return dp[i][W] = min(res_1, res_2);
 }

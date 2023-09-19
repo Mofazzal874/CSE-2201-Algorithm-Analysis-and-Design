@@ -24,6 +24,9 @@ int coinchange(int i , int w , vector<int>&coins , vector<vector<int>> &dp){
     int notTake = 0 + coinchange(i-1, w , coins , dp) ; 
     int take = INT_MAX ; 
     if(coins[i]<=w) take = 1+coinchange(i, w-coins[i],coins , dp) ; //as we have unlimited coins , we will remain in the same position
+    //if the coins number is limited , then change -
+    //if(coins[i]<=w) take = 1+coinchange(i-1, w-coins[i],coins , dp) ;
+    //all you need to change is the i part 
 
     return dp[i][w] = min(take, notTake) ; //return minimum number of coins in both of the cases
 

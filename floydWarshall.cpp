@@ -52,8 +52,8 @@ int32_t main(){
     }
     
     //print(numNodes , cost);
-    fWarshall(numNodes, cost) ;
-    
+    fWarshall(numNodes, cost) ; 
+
 
 
     

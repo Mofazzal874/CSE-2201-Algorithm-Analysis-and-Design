@@ -24,7 +24,7 @@ vector<int> BellmanFord(int n ,vector<vector<int>> &adjL, int source){
 
         }
     }
-    //running iteration for Nth time to check if any negative cycle is there
+    //running iteration for Nth time to check if any negative cycle is there 
     for(auto it: adjL){
             int u = it[0]  ; 
             int v = it[1]  ; 

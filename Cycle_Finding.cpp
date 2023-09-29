@@ -6,12 +6,13 @@ using min_heap = priority_queue<T , vector<T> , greater<T>> ; //to make minHeap.
 #define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
 
 
-void BellmanFord(int n ,vector<vector<int>> &adjL, int source){
+void BellmanFord(int n ,vector<vector<int>> &adjL){
 
-    vector<int> dist(n, 1e8) ; //put n+1 if the graph starts from 1(not 0)
+
+    vector<int> dist(n+1, 1e8) ;
     vector<int> nCycle ; 
-    vector<int> parent(n,-1) ;// put n+1 if the graph starts from 1(not 0)
-    dist[source] = 0 ;
+    vector<int> parent(n+1,-1) ; 
+    dist[1] = 0 ;
     n-- ;  
     while(n--){
         for(auto it: adjL){
@@ -20,7 +21,7 @@ void BellmanFord(int n ,vector<vector<int>> &adjL, int source){
             int wt = it[2] ;
             if(dist[u] + wt < dist[v]){
                 dist[v] = dist[u] + wt;
-                  
+                parent[v] = u ;  
             }
 
         }
@@ -38,11 +39,10 @@ void BellmanFord(int n ,vector<vector<int>> &adjL, int source){
 
     } 
     if(flag == 0){ 
-        cout<<"No Negative Cycle\n"  ;
-        cout<<"Distance array: "<<endl;
-        for(auto it:dist) cout<<it<<" " ; 
+        cout<<"NO\n"  ;
     }
     else {
+        cout<<"YES\n" ; 
     int temp ; 
     for(auto it:parent){
         if(it!=-1) {temp = it;break;} 
@@ -56,12 +56,9 @@ void BellmanFord(int n ,vector<vector<int>> &adjL, int source){
     } 
     reverse(nCycle.begin(),nCycle.end()) ; 
     for(auto it:nCycle) cout<<it<<" " ;
-    cout<<endl;
-    cout<<"distance array:"<< endl;
-    for(auto it:dist)cout<<it<<" " ; 
-
+    cout<<nCycle[0] ;
     }
-              
+         
 }
 
 int32_t main(){
@@ -77,8 +74,7 @@ int32_t main(){
         temp.push_back(v) ;
         temp.push_back(wt) ;
         adjL.push_back(temp) ; 
-    }
-    int s ; cin>>s; 
-    BellmanFord(numNodes, adjL, s) ; 
+    } 
+    BellmanFord(numNodes, adjL) ; 
     
 }

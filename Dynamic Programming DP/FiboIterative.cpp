@@ -17,7 +17,23 @@ int fibo(int n ){
 
     return dp[n] ; 
 }
+//Above approch is time optimized but not space optimized.
+//Below approach is both time and space optimized.In this approach , we are
+//keeping track of the previous 2 fibonacci numbers
+
+int fibo1(int n){
+    int prev2 = 0 ; //the base condition
+    int prev1 = 1 ; //the base condition
+    for(int i = 2 ; i<=n ; i++){
+        int curi=prev2+prev1 ; //to keep track of current fibo number 
+        prev2 = prev1 ; 
+        prev1 = curi ; 
+    }
+
+    return prev1 ; 
+
+}
 
 int32_t main(){
-    cout<<fibo(5)<<endl ;
+    cout<<fibo1(5)<<endl ;
 }

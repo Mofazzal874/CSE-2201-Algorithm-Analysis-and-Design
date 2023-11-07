@@ -21,17 +21,18 @@ int n ;
 
 int CoinChange(int i , int w  ){
 
-    if(i == n ){ //base case
-        if(w==0) return 0 ;
-        return 1e9 ;  
-    }
-    
+    if(w<0) return 1e9;
+    if(i==n){
+        if(w==0) return 0 ; 
+        return 1e9 ; 
+    } 
     if(dp[i][w]!=-1) return dp[i][w] ; 
     int notTake = CoinChange(i+1 , w) ; 
     int take = 1e9 ; 
 
-    if(cVal[i+1] < cCount[i+1] && w >= coins[i+1]){
+    if(cVal[i] < cCount[i] && w >= coins[i]){
         take = 1+ CoinChange(i , w- coins[i+1]) ; 
+        cVal[i]++ ; 
     }
     return dp[i][w] = min(take, notTake) ; 
 
